@@ -116,34 +116,6 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Pet"",
-            ""id"": ""0e609eb3-277e-451e-81f3-e7fc987da776"",
-            ""actions"": [
-                {
-                    ""name"": ""Test1"",
-                    ""type"": ""Button"",
-                    ""id"": ""0601c64d-c402-43b9-b01e-650cfae0b46b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""c8cf8476-9a69-40bb-ae17-0dabf3e981e5"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Test1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""UI"",
             ""id"": ""c3498250-aaba-4f67-876e-24f39524bb94"",
             ""actions"": [
@@ -254,9 +226,6 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        // Pet
-        m_Pet = asset.FindActionMap("Pet", throwIfNotFound: true);
-        m_Pet_Test1 = m_Pet.FindAction("Test1", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_TEST2 = m_UI.FindAction("TEST2", throwIfNotFound: true);
@@ -375,52 +344,6 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // Pet
-    private readonly InputActionMap m_Pet;
-    private List<IPetActions> m_PetActionsCallbackInterfaces = new List<IPetActions>();
-    private readonly InputAction m_Pet_Test1;
-    public struct PetActions
-    {
-        private @ActionMap m_Wrapper;
-        public PetActions(@ActionMap wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Test1 => m_Wrapper.m_Pet_Test1;
-        public InputActionMap Get() { return m_Wrapper.m_Pet; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PetActions set) { return set.Get(); }
-        public void AddCallbacks(IPetActions instance)
-        {
-            if (instance == null || m_Wrapper.m_PetActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PetActionsCallbackInterfaces.Add(instance);
-            @Test1.started += instance.OnTest1;
-            @Test1.performed += instance.OnTest1;
-            @Test1.canceled += instance.OnTest1;
-        }
-
-        private void UnregisterCallbacks(IPetActions instance)
-        {
-            @Test1.started -= instance.OnTest1;
-            @Test1.performed -= instance.OnTest1;
-            @Test1.canceled -= instance.OnTest1;
-        }
-
-        public void RemoveCallbacks(IPetActions instance)
-        {
-            if (m_Wrapper.m_PetActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPetActions instance)
-        {
-            foreach (var item in m_Wrapper.m_PetActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_PetActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public PetActions @Pet => new PetActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -543,10 +466,6 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-    }
-    public interface IPetActions
-    {
-        void OnTest1(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

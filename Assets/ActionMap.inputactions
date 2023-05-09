@@ -94,34 +94,6 @@
             ]
         },
         {
-            "name": "Pet",
-            "id": "0e609eb3-277e-451e-81f3-e7fc987da776",
-            "actions": [
-                {
-                    "name": "Test1",
-                    "type": "Button",
-                    "id": "0601c64d-c402-43b9-b01e-650cfae0b46b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "c8cf8476-9a69-40bb-ae17-0dabf3e981e5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Test1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
             "name": "UI",
             "id": "c3498250-aaba-4f67-876e-24f39524bb94",
             "actions": [
